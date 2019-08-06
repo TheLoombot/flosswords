@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import string
 import random 
 import numpy
@@ -28,6 +30,7 @@ def checkColumns(matrix):
   return True
 
 def newCrossWord(size):
+  print "Going for size " + str(size) + "..."
   count = 0
   while True:
     count += 1
@@ -35,17 +38,14 @@ def newCrossWord(size):
     for i in range(size):
       result.append(getWordFromList(size))
     if checkColumns(result):
-      print "After " + str(count) + " attempts"
+      print "After " + str(count) + " attempts:"
       print numpy.matrix(result)
       return result
     else:
-      if count % 10000 == 0:
-        print count
+      if count % 100000 == 0:
+        print str(count) + " attempts so far..."
       continue
 
 newCrossWord(3)
-newCrossWord(3)
-newCrossWord(3)
 newCrossWord(4)
-newCrossWord(4)
-newCrossWord(4)
+newCrossWord(5)
