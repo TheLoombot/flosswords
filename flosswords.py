@@ -46,6 +46,37 @@ def newCrossWord(size):
         print str(count) + " attempts so far..."
       continue
 
-newCrossWord(3)
-newCrossWord(4)
-newCrossWord(5)
+def altMethod(size):
+  print "Going for size " + str(size) + "..."
+  count = 0
+  while True:
+    count = count + 1
+    result = []
+    firstAcrossWord = getWordFromList(size)
+    result.append(firstAcrossWord)
+    # print("First row word is: ", ''.join(firstAcrossWord))
+    possibleColumnWords = [i for i in words if (i.startswith(firstAcrossWord[0]) and len(i)==size)]
+    columnWord = random.choice(possibleColumnWords)
+    # print("First column word is ", ''.join(columnWord))
+  
+    for i in range(size-1):
+      i = i + 1
+      possibleRowWords = [j for j in words if (j.startswith(columnWord[i]) and len(j)==size)]
+      result.append(list(random.choice(possibleRowWords)))
+
+    if checkColumns(result):
+      print "After " + str(count) + " attempts:"
+      print numpy.matrix(result)
+      return result
+
+    else:
+      if count % 100 == 0:
+        print str(count) + " attempts so far..."
+      continue
+
+
+# newCrossWord(3)
+
+altMethod(3)
+altMethod(4)
+altMethod(5)
