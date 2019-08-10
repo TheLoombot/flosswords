@@ -72,6 +72,7 @@ def altMethod(size):
     else:
       if count % 100 == 0:
         print str(count) + " attempts so far..."
+        print numpy.matrix(result)
       continue
 
 
