@@ -1,8 +1,10 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import string
 import random 
 import numpy
+import operator
 
 f = open('./3-4-5-wordlist.txt')
 words = [line.rstrip('\n').upper() for line in f]
@@ -75,9 +77,33 @@ def altMethod(size):
         print numpy.matrix(result)
       continue
 
+def newNewMethod(size):
+  print "Going for size " + str(size) + " using new new method..."
+  result = []
+  possibleWords = [j for j in words if len(j)==size]
+  print str(len(possibleWords)) + " possible words in the set..."
+  for row in range(size): 
+    print "Working on row " + str(row) + "..."
+    scoredWordsDict = {}
+    for index, word in enumerate(possibleWords):
+      if index % 1000 == 0:
+        print "  Evaluated " + str(index) + " words..." 
+      curWordScore = 0
+      for x in range(size):
+        columnWordPrefix = ''.join(columnOfMatrix(result, x)) + word[x]
+        possibleColumnWords = [k for k in possibleWords if (k.startswith(columnWordPrefix))]
+        curWordScore = curWordScore + len(possibleColumnWords)
+      scoredWordsDict[word] = curWordScore
+    print "Top 10 words:" 
+    top10Words = sorted(scoredWordsDict.items(), key = operator.itemgetter(1))[-10:]
+    print top10Words
+    bestWord = random.choice(top10Words)[0]
+    result.append(list(bestWord))
+    print "Chose " + bestWord
+  print numpy.matrix(result)
+  if checkColumns(result):
+    print "She checks out ok! 👌🏽"
+  else: 
+    print "Uh-oh no bueno 😰"
 
-# newCrossWord(3)
-
-altMethod(3)
-altMethod(4)
-altMethod(5)
+newNewMethod(5)
