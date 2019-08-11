@@ -6,7 +6,7 @@ import random
 import numpy
 import operator
 
-f = open('./3-4-5-wordlist.txt')
+f = open('./3-6.txt')
 words = [line.rstrip('\n').upper() for line in f]
 
 def isWord(word):
@@ -85,25 +85,33 @@ def newNewMethod(size):
   for row in range(size): 
     print "Working on row " + str(row) + "..."
     scoredWordsDict = {}
-    for index, word in enumerate(possibleWords):
-      if index % 1000 == 0:
+    random.shuffle(possibleWords)
+    # hacky optimization to restrict evaluations to n random words
+    abridgedList = possibleWords[:1000]
+    for index, word in enumerate(abridgedList):
+      if index % 100 == 0:
         print "  Evaluated " + str(index) + " words..." 
       curWordScore = 0
       for x in range(size):
         columnWordPrefix = ''.join(columnOfMatrix(result, x)) + word[x]
         possibleColumnWords = [k for k in possibleWords if (k.startswith(columnWordPrefix))]
         curWordScore = curWordScore + len(possibleColumnWords)
-      scoredWordsDict[word] = curWordScore
-    print "Top 10 words:" 
-    top10Words = sorted(scoredWordsDict.items(), key = operator.itemgetter(1))[-10:]
-    print top10Words
-    bestWord = random.choice(top10Words)[0]
-    result.append(list(bestWord))
-    print "Chose " + bestWord
+      if curWordScore >= size:
+        scoredWordsDict[word] = curWordScore
+    print "Top words:" 
+    topWords = sorted(scoredWordsDict.items(), key = operator.itemgetter(1))[-20:]
+    print topWords
+    if len(topWords) == 0:
+      print "CRAP! No eligible words found... aborting..."
+      break
+    else:
+      bestWord = random.choice(topWords)[0]
+      result.append(list(bestWord))
+      print "Chose " + bestWord
   print numpy.matrix(result)
   if checkColumns(result):
-    print "She checks out ok! 👌🏽"
+    print "👌🏽"
   else: 
-    print "Uh-oh no bueno 😰"
+    print "😰 uh oh!"
 
 newNewMethod(5)
