@@ -29,6 +29,8 @@ def checkColumns(matrix):
     columnWord = ''.join(columnOfMatrix(matrix, i))
     if not isWord(columnWord):
       return False
+  if len(matrix) != len(matrix[0]):
+    return False
   return True
 
 def newCrossWord(size):
@@ -83,11 +85,12 @@ def newNewMethod(size):
   possibleWords = [j for j in words if len(j)==size]
   print str(len(possibleWords)) + " possible words in the set..."
   for row in range(size): 
-    print "Working on row " + str(row) + "..."
     scoredWordsDict = {}
     random.shuffle(possibleWords)
     # hacky optimization to restrict evaluations to n random words
-    abridgedList = possibleWords[:1000]
+    limit = (row+1)*len(possibleWords)/size/1
+    print "Evaluating " + str(limit) + " words for row " + str(row)
+    abridgedList = possibleWords[:limit]
     for index, word in enumerate(abridgedList):
       if index % 100 == 0:
         print "  Evaluated " + str(index) + " words..." 
@@ -99,7 +102,7 @@ def newNewMethod(size):
       if curWordScore >= size:
         scoredWordsDict[word] = curWordScore
     print "Top words:" 
-    topWords = sorted(scoredWordsDict.items(), key = operator.itemgetter(1))[-20:]
+    topWords = sorted(scoredWordsDict.items(), key = operator.itemgetter(1))[-10:]
     print topWords
     if len(topWords) == 0:
       print "CRAP! No eligible words found... aborting..."
@@ -114,4 +117,4 @@ def newNewMethod(size):
   else: 
     print "😰 uh oh!"
 
-newNewMethod(5)
+newNewMethod(4)
