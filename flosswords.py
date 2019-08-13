@@ -8,6 +8,7 @@ import operator
 
 f = open('./3-6.txt')
 words = [line.rstrip('\n').upper() for line in f]
+scoreCache = {}
 
 def isWord(word):
   if word in words:
@@ -33,7 +34,7 @@ def checkColumns(matrix):
     return False
   return True
 
-def newCrossWord(size):
+def randomMethod(size):
   print "Going for size " + str(size) + "..."
   count = 0
   while True:
@@ -50,7 +51,7 @@ def newCrossWord(size):
         print str(count) + " attempts so far..."
       continue
 
-def altMethod(size):
+def stillPrettyRandomMethod(size):
   print "Going for size " + str(size) + "..."
   count = 0
   while True:
@@ -79,7 +80,14 @@ def altMethod(size):
         print numpy.matrix(result)
       continue
 
-def newNewMethod(size):
+def stringScore(inputString, size):
+  stringKey = (inputString, size)
+  if stringKey not in scoreCache:
+    possibleWords = [k for k in words if (k.startswith(inputString) and len(k)==size)]
+    scoreCache[stringKey] = len(possibleWords)
+  return scoreCache[stringKey]
+    
+def basicScoringMethod(size):
   print "Going for size " + str(size) + " using new new method..."
   result = []
   possibleWords = [j for j in words if len(j)==size]
@@ -97,8 +105,7 @@ def newNewMethod(size):
       curWordScore = 0
       for x in range(size):
         columnWordPrefix = ''.join(columnOfMatrix(result, x)) + word[x]
-        possibleColumnWords = [k for k in possibleWords if (k.startswith(columnWordPrefix))]
-        curWordScore = curWordScore + len(possibleColumnWords)
+        curWordScore = curWordScore + stringScore(columnWordPrefix, size)
       if curWordScore >= size:
         scoredWordsDict[word] = curWordScore
     print "Top words:" 
@@ -117,4 +124,4 @@ def newNewMethod(size):
   else: 
     print "😰 uh oh!"
 
-newNewMethod(4)
+basicScoringMethod(5)
