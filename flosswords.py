@@ -94,13 +94,8 @@ def basicScoringMethod(size):
   print str(len(possibleWords)) + " possible words in the set..."
   for row in range(size): 
     scoredWordsDict = {}
-    random.shuffle(possibleWords)
-    # hacky optimization to restrict evaluations to n random words
-    limit = (row+1)*len(possibleWords)/size/1
-    print "Evaluating " + str(limit) + " words for row " + str(row)
-    abridgedList = possibleWords[:limit]
-    for index, word in enumerate(abridgedList):
-      if index % 100 == 0:
+    for index, word in enumerate(possibleWords):
+      if index % 1000 == 0:
         print "  Evaluated " + str(index) + " words..." 
       curWordScore = 0
       for x in range(size):
@@ -124,4 +119,4 @@ def basicScoringMethod(size):
   else: 
     print "😰 uh oh!"
 
-basicScoringMethod(5)
+basicScoringMethod(6)
