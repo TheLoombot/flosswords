@@ -93,18 +93,21 @@ def basicScoringMethod(size):
   possibleWords = [j for j in words if len(j)==size]
   print str(len(possibleWords)) + " possible words in the set..."
   for row in range(size): 
+    if row == 0:
+      firstWord = random.choice(possibleWords)
+      print "Choosing " + firstWord + " randomly for row 0" 
+      result.append(list(firstWord))
+      continue
     scoredWordsDict = {}
     for index, word in enumerate(possibleWords):
-      if index % 1000 == 0:
-        print "  Evaluated " + str(index) + " words..." 
       curWordScore = 0
       for x in range(size):
         columnWordPrefix = ''.join(columnOfMatrix(result, x)) + word[x]
         curWordScore = curWordScore + stringScore(columnWordPrefix, size)
       if curWordScore >= size:
         scoredWordsDict[word] = curWordScore
-    print "Top words:" 
-    topWords = sorted(scoredWordsDict.items(), key = operator.itemgetter(1))[-10:]
+    print "Top words for row " + str(row) + ":"  
+    topWords = sorted(scoredWordsDict.items(), key = operator.itemgetter(1))[-3:]
     print topWords
     if len(topWords) == 0:
       print "CRAP! No eligible words found... aborting..."
@@ -119,4 +122,4 @@ def basicScoringMethod(size):
   else: 
     print "😰 uh oh!"
 
-basicScoringMethod(6)
+basicScoringMethod(5)
