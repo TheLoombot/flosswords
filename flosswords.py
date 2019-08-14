@@ -35,7 +35,7 @@ def checkColumns(matrix):
   return True
 
 def randomMethod(size):
-  print "Going for size " + str(size) + "..."
+  print "Going for size " + str(size) + " basically just randomly"
   count = 0
   while True:
     count += 1
@@ -52,7 +52,7 @@ def randomMethod(size):
       continue
 
 def stillPrettyRandomMethod(size):
-  print "Going for size " + str(size) + "..."
+  print "Going for size " + str(size) + " using a dumb method"
   count = 0
   while True:
     count = count + 1
@@ -89,7 +89,8 @@ def stringScore(inputString, size):
   return scoreCache[stringKey]
     
 def basicScoringMethod(size):
-  print "Going for size " + str(size) + " using new new method..."
+  print "Going for size " + str(size) + " using basic scoring method..."
+  print "Score cache size is " + str(len(scoreCache)) 
   result = []
   possibleWords = [j for j in words if len(j)==size]
   print str(len(possibleWords)) + " possible words in the set..."
@@ -117,7 +118,7 @@ def basicScoringMethod(size):
       bestWord = random.choice(topWords)[0]
       result.append(list(bestWord))
       #print "Chose " + bestWord
-  print numpy.matrix(result)
+  # print numpy.matrix(result)
   if checkColumns(result):
     print "👌🏽"
     return result
@@ -126,10 +127,12 @@ def basicScoringMethod(size):
 
 loopCount = 0
 while True:
+  print "\nAttempt " + str(loopCount)
   loopCount = loopCount + 1 
   result = basicScoringMethod(6)
   if result:
     print "After " + str(loopCount) + " tries" 
+    print numpy.matrix(result)
     break
   else:
     continue
