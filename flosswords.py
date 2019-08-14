@@ -85,6 +85,7 @@ def stringScore(inputString, size):
   if stringKey not in scoreCache:
     possibleWords = [k for k in words if (k.startswith(inputString) and len(k)==size)]
     scoreCache[stringKey] = len(possibleWords)
+    #print "Score cache now " + str(len(scoreCache)) + " entries long" 
   return scoreCache[stringKey]
     
 def basicScoringMethod(size):
@@ -95,7 +96,7 @@ def basicScoringMethod(size):
   for row in range(size): 
     if row == 0:
       firstWord = random.choice(possibleWords)
-      print "Choosing " + firstWord + " randomly for row 0" 
+      #print "Choosing " + firstWord + " randomly for row 0" 
       result.append(list(firstWord))
       continue
     scoredWordsDict = {}
@@ -106,20 +107,32 @@ def basicScoringMethod(size):
         curWordScore = curWordScore + stringScore(columnWordPrefix, size)
       if curWordScore >= size:
         scoredWordsDict[word] = curWordScore
-    print "Top words for row " + str(row) + ":"  
+    #print "Top words for row " + str(row) + ":"  
     topWords = sorted(scoredWordsDict.items(), key = operator.itemgetter(1))[-3:]
-    print topWords
+    #print topWords
     if len(topWords) == 0:
-      print "CRAP! No eligible words found... aborting..."
+      #print "CRAP! No eligible words found... aborting..."
       break
     else:
       bestWord = random.choice(topWords)[0]
       result.append(list(bestWord))
-      print "Chose " + bestWord
+      #print "Chose " + bestWord
   print numpy.matrix(result)
   if checkColumns(result):
     print "👌🏽"
+    return result
   else: 
     print "😰 uh oh!"
 
-basicScoringMethod(5)
+loopCount = 0
+while True:
+  loopCount = loopCount + 1 
+  result = basicScoringMethod(6)
+  if result:
+    print "After " + str(loopCount) + " tries" 
+    break
+  else:
+    continue
+
+
+
