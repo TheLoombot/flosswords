@@ -10,7 +10,7 @@ Method 1 was totally random... it just picked random words for rows, then checke
 
 Method 2 tried to restrict subsequent row choices based on valid column words. It failed.
 
-Method 3 picks a random word for row 0, then scores all the words in the set for the next row, and picks a top-scorer. The score is simply the number of words in the list that start with the resulting column letters if the word were picked (summed across all columns). We repeat this for all rows until we find a valid matrix. We cache the scores of all strings as we run so we don't have to do redundant calculation (this was a HUGE time-saver). Works well after a few tries for size 5... takes many many attempts but can eventually successfully create a size 6. For example:
+Method 3 picks a random word for row 0, then scores all the words in the set for the next row, and picks a top-scorer. The score is simply the number of words in the list that start with the resulting column letters if the word were picked (summed across all columns). We repeat this for all rows until we either find a valid matrix or fail, in which case we start over. We cache the scores of all strings as we run so we don't have to do redundant calculation (this was a HUGE time-saver). Works well after a few tries for size 5... takes many many attempts but can eventually successfully create a size 6. For example:
 
 ```
 [['P' 'A' 'S' 'C' 'A' 'L']
