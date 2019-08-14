@@ -118,7 +118,7 @@ def basicScoringMethod(size):
       bestWord = random.choice(topWords)[0]
       result.append(list(bestWord))
       #print "Chose " + bestWord
-  # print numpy.matrix(result)
+  print numpy.matrix(result)
   if checkColumns(result):
     print "👌🏽"
     return result
