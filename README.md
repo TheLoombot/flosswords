@@ -1,5 +1,7 @@
 # flosswords
 
+Script and word list to create "mini" crossword puzzles like the New York Times. Just the grid... you have to write your own clues!
+
 The fundamental thing that will make this good or not is the word list. 
 
 I am using an abridged version of the Crossword Nexus Word List, cropped to 3-6 letter words. 
