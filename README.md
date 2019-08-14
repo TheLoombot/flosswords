@@ -19,6 +19,8 @@ Method 3 picks a random word for row 0, then scores all the words in the set for
  ['S' 'E' 'N' 'S' 'E' 'D']]
 ```
 
+One downside to this approach is that you see a lot of the same words over and over, because words with common letters (S, A, E, T) tend to score highly. That's why the first row (row 0) is purely random. If we scored the first row, we'd always start with the same word.
+
 Some relevant links:
 
 https://crosswordnexus.com/downloads/wordlist.txt.zip
