@@ -53,7 +53,7 @@ def randomMethod(size):
       continue
 
 def stillPrettyRandomMethod(size):
-  print "Going for size " + str(size) + " using a dumb method"
+  #print "Going for size " + str(size) + " using a dumb method"
   count = 0
   while True:
     count = count + 1
@@ -72,13 +72,13 @@ def stillPrettyRandomMethod(size):
 
     if checkColumns(result):
       print "After " + str(count) + " attempts:"
-      print numpy.matrix(result)
+      #print numpy.matrix(result)
       return result
 
     else:
       if count % 100 == 0:
         print str(count) + " attempts so far..."
-        print numpy.matrix(result)
+        #print numpy.matrix(result)
       continue
 
 def stringScore(inputString, size):
@@ -90,11 +90,11 @@ def stringScore(inputString, size):
   return scoreCache[stringKey]
     
 def basicScoringMethod(size):
-  print "Going for size " + str(size) + " using basic scoring method..."
-  print "Score cache size is " + str(len(scoreCache)) 
+  # print "Going for size " + str(size) + " using basic scoring method..."
+  # print "Score cache size is " + str(len(scoreCache)) 
   result = []
   possibleWords = [j for j in words if len(j)==size]
-  print str(len(possibleWords)) + " possible words in the set..."
+  #print str(len(possibleWords)) + " possible words in the set..."
   for row in range(size): 
     if row == 0:
       firstWord = random.choice(possibleWords)
@@ -119,26 +119,27 @@ def basicScoringMethod(size):
       bestWord = random.choice(topWords)[0]
       result.append(list(bestWord))
       #print "Chose " + bestWord
-  print numpy.matrix(result)
+  #print numpy.matrix(result)
   if checkColumns(result):
-    print "👌🏽"
+    # print "👌🏽"
     return result
   else: 
-    print "😰 uh oh!"
+    # print "😰 uh oh!"
+    pass
 
 loopCount = 0
 while True:
-  print "\nAttempt " + str(loopCount)
+  # print "\nAttempt " + str(loopCount)
   startTime = time.time()
   loopCount = loopCount + 1 
-  result = basicScoringMethod(5)
+  result = basicScoringMethod(6)
   if result:
-    print "After " + str(loopCount) + " tries" 
+    print "After " + str(loopCount) + " tries:" 
     print numpy.matrix(result)
-    break
+    # break
   else:
-    print("%.2f seconds" % (time.time() - startTime))
-    continue
+    pass
+  print "Attempt %i, %.2f seconds" % (loopCount, (time.time() - startTime))
 
 
 
