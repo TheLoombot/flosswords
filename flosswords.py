@@ -7,7 +7,7 @@ import numpy
 import operator
 import time 
 
-f = open('./g10k.txt')
+f = open('./wiki.txt')
 words = [line.rstrip('\n').upper() for line in f]
 scoreCache = {}
 
