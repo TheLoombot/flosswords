@@ -7,7 +7,7 @@ import numpy
 import operator
 import time 
 
-f = open('./3-6.txt')
+f = open('./g10k.txt')
 words = [line.rstrip('\n').upper() for line in f]
 scoreCache = {}
 
@@ -129,7 +129,7 @@ while True:
   # print "\nAttempt " + str(loopCount)
   startTime = time.time()
   loopCount = loopCount + 1 
-  result = basicScoringMethod(6)
+  result = basicScoringMethod(5)
   if result:
     print "After " + str(loopCount) + " tries:" 
     print numpy.matrix(result)
