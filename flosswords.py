@@ -27,56 +27,16 @@ def columnOfMatrix(matrix, i):
   return[row[i] for row in matrix]
 
 def checkColumns(matrix):
+  if len(matrix) != len(matrix[0]):
+    return False
   for i in range(len(matrix)):
     columnWord = ''.join(columnOfMatrix(matrix, i))
     if not isWord(columnWord):
       return False
-  if len(matrix) != len(matrix[0]):
-    return False
+    rowWord = ''.join(matrix[i])
+    if rowWord == columnWord:
+      return False
   return True
-
-def randomMethod(size):
-  print "Going for size " + str(size) + " basically just randomly"
-  count = 0
-  while True:
-    count += 1
-    result = []
-    for i in range(size):
-      result.append(getWordFromList(size))
-    if checkColumns(result):
-      print "After " + str(count) + " attempts:"
-      print numpy.matrix(result)
-      return result
-    else:
-      if count % 100000 == 0:
-        print str(count) + " attempts so far..."
-      continue
-
-def stillPrettyRandomMethod(size):
-  #print "Going for size " + str(size) + " using a dumb method"
-  count = 0
-  while True:
-    count = count + 1
-    result = []
-    firstAcrossWord = getWordFromList(size)
-    result.append(firstAcrossWord)
-    # print("First row word is: ", ''.join(firstAcrossWord))
-    possibleColumnWords = [i for i in words if (i.startswith(firstAcrossWord[0]) and len(i)==size)]
-    columnWord = random.choice(possibleColumnWords)
-    # print("First column word is ", ''.join(columnWord))
-    for i in range(size-1):
-      i = i + 1
-      possibleRowWords = [j for j in words if (j.startswith(columnWord[i]) and len(j)==size)]
-      result.append(list(random.choice(possibleRowWords)))
-    if checkColumns(result):
-      print "After " + str(count) + " attempts:"
-      #print numpy.matrix(result)
-      return result
-    else:
-      if count % 100 == 0:
-        print str(count) + " attempts so far..."
-        #print numpy.matrix(result)
-      continue
 
 def stringScore(inputString, size):
   stringKey = (inputString, size)
