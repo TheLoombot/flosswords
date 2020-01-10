@@ -136,7 +136,7 @@ while True:
     # break
   else:
     pass
-  print "Attempt %i, %.2f seconds" % (loopCount, (time.time() - startTime))
+  # print "Attempt %i, %.2f seconds" % (loopCount, (time.time() - startTime))
 
 
 
